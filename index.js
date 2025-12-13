@@ -7,15 +7,16 @@ import organizerRouter from "./routes/organizer.route.js";
 import mongoose from "mongoose";
 
 const app = express();
-
+app.use(cors())
 app.use(express.json());
+
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: `*`,
-    // credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: `*`,
+//     // credentials: true,
+//   })
+// );
 
 app.get("/test", (req, res) => {
   res.send("hello world");
