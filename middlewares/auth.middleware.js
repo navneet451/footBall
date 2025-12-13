@@ -3,8 +3,8 @@ import { errorHandler } from "../utils/errorHandler.js";
 import { JWTSECRETS } from "../secret.js";
 
 export const verifyToken = (req, res, next) => {
-  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
-  console.log(token);
+  const token = req.cookies.token;
+  // console.log(token);
   
   if (!token) {
     return next(errorHandler(401, "You are not loggedin!"));
@@ -13,7 +13,7 @@ export const verifyToken = (req, res, next) => {
     if (err) {
       return next(errorHandler(401, "You are not loggedin!"));
     }
-    console.log(user);
+    // console.log(user);
     req.user = user;
     next();
   });

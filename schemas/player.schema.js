@@ -7,6 +7,6 @@ const PlayerSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
 });
 
-const Player = mongoose.model("PLayer", PlayerSchema);
+const Player = mongoose.model("Player", PlayerSchema);
 
 export default Player;

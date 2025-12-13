@@ -9,7 +9,6 @@ const TeamSchema = new mongoose.Schema({
     }
   ],
 
-  // Stats updated after matches
   wins:      { type: Number, default: 0 },
   draws:     { type: Number, default: 0 },
   losses:    { type: Number, default: 0 },
