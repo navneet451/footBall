@@ -34,7 +34,11 @@ export const signUp = async (req, res, next) => {
 
     return res
       .status(201)
-      .cookie("token", token, { httpOnly: true })
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: true, // REQUIRED on Render
+        sameSite: "none", // REQUIRED cross-site
+      })
       .json({ status: true, message: "Sign up success!", safeUser, token });
   } catch (error) {
     console.log("Signup error", error);
@@ -66,7 +70,11 @@ export const signIn = async (req, res, next) => {
 
     return res
       .status(200)
-      .cookie("token", token, { httpOnly: true })
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: true, // REQUIRED on Render
+        sameSite: "none", // REQUIRED cross-site
+      })
       .json({ success: true, message: "Signin success", safeUser, token });
   } catch (error) {
     console.error("Sign-in Error:", error);
@@ -87,13 +95,11 @@ export const getYourTeamDetails = async (req, res, next) => {
         select: "name wins draws losses points goalsFor goalsAgainst",
       });
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "team fetched successfully",
-        playerDetails,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "team fetched successfully",
+      playerDetails,
+    });
   } catch (error) {
     console.error("Details fetching error:", error);
     res.status(500).json({ message: "Server error" });
