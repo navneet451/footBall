@@ -7,7 +7,16 @@ import organizerRouter from "./routes/organizer.route.js";
 import mongoose from "mongoose";
 
 const app = express();
-app.use(cors())
+app.set("trust proxy", 1);
+
+app.use(
+  cors({
+    origin: "https://football-scoreboard-1o8k.onrender.com",
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
 app.use(express.json());
 
 app.use(cookieParser());
