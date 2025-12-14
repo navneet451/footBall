@@ -47,17 +47,28 @@ export const getAllTeams = async (req, res, next) => {
 
 export const createMatch = async (req, res, next) => {
   try {
-    const { team, opponent, teamScore, opponentScore } = req.body;
+    const { team, opponent } = req.body;
     const match = new Match({
       team,
       opponentTeam: opponent,
-      teamScore,
-      opponentScore,
     });
-    await match.save();
 
+    await match.save();
+    return res
+      .status(201)
+      .json({ success: true, message: "Match created", match });
+  } catch (error) {
+    res.status(500).json({ message: "server erroe", success: false });
+  }
+};
+
+
+export const updateMatch = async (req, res, next) => {
+  try {
+    const {team, teamScore, opponent, opponentScore, matchId} = req.body;
     const teamA = await Team.findById(team);
     const teamB = await Team.findById(opponent);
+    const match = await Match.findById(matchId);
 
     if (!teamA || !teamB) {
       return res
@@ -88,14 +99,13 @@ export const createMatch = async (req, res, next) => {
 
     await teamA.save();
     await teamB.save();
-
-    return res
-      .status(201)
-      .json({ success: true, message: "Match created", match });
+    match.status =  "completed";
+    await match.save();
+  return res.status(200).json({ success: true, message: "Match updated", match });
   } catch (error) {
     res.status(500).json({ message: "server erroe", success: false });
   }
-};
+}
 
 export const getAllTeamDetails = async (req, res, next) => {
   try {

@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./routes/user.route.js";
 import organizerRouter from "./routes/organizer.route.js";
+import matchRouter from "./routes/match.route.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -11,6 +12,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
+    // origin: "http://localhost:5173",
     origin: "https://football-scoreboard-1o8k.onrender.com",
     credentials: true,
   })
@@ -33,6 +35,7 @@ app.get("/test", (req, res) => {
 
 app.use("/api/auth", userRouter);
 app.use("/api", organizerRouter);
+app.use("/api", matchRouter);
 
 main()
   .then((res) => {

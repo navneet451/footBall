@@ -13,14 +13,15 @@ const MatchSchema = new mongoose.Schema({
     required: true,
   },
 
-  teamScore:       { type: Number, required: true },
-  opponentScore:   { type: Number, required: true },
+  teamScore:       { type: Number, required: true, default: 0},
+  opponentScore:   { type: Number, required: true, default: 0},
 
   status: {
     type: String,
-    enum: ["completed", "upcoming"],
-    default: "completed",  
+    enum: ["completed", "live"],
+    default: "live",  
   },
+  winner: {type: String},
 
   date: { type: Date, default: Date.now }
 });
