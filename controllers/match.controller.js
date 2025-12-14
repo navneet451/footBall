@@ -174,7 +174,7 @@ export const getMatchDetails = async (req, res, next) => {
         select: "name players wins losses draws goalsFor goalsAgainst points",
         populate: {
           path: "players",
-          select: "name",
+          select: "fullName",
         },
       })
       .populate({
@@ -182,7 +182,7 @@ export const getMatchDetails = async (req, res, next) => {
         select: "name players wins losses draws goalsFor goalsAgainst points",
         populate: {
           path: "players",
-          select: "name",
+          select: "fullName",
         },
       });
 
